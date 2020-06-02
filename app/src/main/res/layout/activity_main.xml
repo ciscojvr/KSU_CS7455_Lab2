@@ -10,10 +10,8 @@
         android:id="@+id/textView_crust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="Crust"
+        android:text="@string/crust"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +24,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="97dp"
         android:layout_marginRight="97dp"
-        android:text="Topping"
+        android:text="@string/topping"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,9 +34,7 @@
         android:id="@+id/textView_toGoOrNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:text="To go or no?"
+        android:text="@string/to_go_or_no"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,12 +46,13 @@
         android:id="@+id/textView_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="71dp"
-        android:text="Size"
+        android:layout_marginBottom="100dp"
+        android:text="@string/size"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -63,11 +60,122 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="$00.00"
+        android:text="@string/_00_00"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_crust">
+
+        <RadioButton
+            android:id="@+id/radioButton_crispy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crispy" />
+
+        <RadioButton
+            android:id="@+id/radioButton_thick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thick" />
+
+        <RadioButton
+            android:id="@+id/radioButton_soggy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Soggy" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_toGoOrNo">
+
+        <RadioButton
+            android:id="@+id/radioButton_atRestaurant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="At Restaurant" />
+
+        <RadioButton
+            android:id="@+id/radioButton_pickup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pickup" />
+
+        <RadioButton
+            android:id="@+id/radioButton_deliver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deliver" />
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/checkBox_anchovies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        android:layout_marginLeft="155dp"
+        android:layout_marginTop="22dp"
+        android:text="Anchovies"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/textView_topping" />
+
+    <CheckBox
+        android:id="@+id/checkBox_pineapple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pineapple"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_anchovies"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_anchovies" />
+
+    <CheckBox
+        android:id="@+id/checkBox_garlic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Garlic"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_pineapple"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_pineapple" />
+
+    <CheckBox
+        android:id="@+id/checkBox_okra"
+        android:layout_width="61dp"
+        android:layout_height="wrap_content"
+        android:text="Okra"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_garlic"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_garlic" />
+
+    <SeekBar
+        android:id="@+id/seekBar_size"
+        android:layout_width="350dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="62dp"
+        android:progress="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_inches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="60dp"
+        android:text="0 in"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
