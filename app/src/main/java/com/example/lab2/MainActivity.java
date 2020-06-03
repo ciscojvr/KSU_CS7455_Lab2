@@ -1,3 +1,9 @@
+/*
+
+Name: Francisco Ozuna Diaz
+Assignment: CS 7455 Lab 2
+
+ */
 package com.example.lab2;
 
 import androidx.appcompat.app.AppCompatActivity;
