@@ -9,9 +9,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    Pizza customersPizza;
+
     RadioGroup crustRadioGroup;
 
     CheckBox anchoviesCheckbox;
@@ -25,10 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
     TextView currentSize;
 
+    TextView finalPrice;
+
+    Double totalCost = 0.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        customersPizza = new Pizza();
 
         crustRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_crust);
 
@@ -43,28 +50,42 @@ public class MainActivity extends AppCompatActivity {
 
         currentSize = (TextView)findViewById(R.id.textView_inches);
 
-        Double totalCost = 00.00;
-
+        finalPrice = (TextView)findViewById(R.id.textView_price);
 
         crustRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int currentId = crustRadioGroup.getCheckedRadioButtonId();
-                RadioButton currentCrustRB = (RadioButton)findViewById(currentId);
-
-                if (currentCrustRB.equals(R.id.radioButton_crispy)) {
-
+                switch (checkedId) {
+                    case R.id.radioButton_crispy:
+                        customersPizza.setCrust_price(0);
+                        System.out.println("Crispy crust selected.");
+                        break;
+                    case R.id.radioButton_thick:
+                        customersPizza.setCrust_price(2.50);
+                        System.out.println("Thick crust selected.");
+                        break;
+                    case R.id.radioButton_soggy:
+                        customersPizza.setCrust_price(5.00);
+                        System.out.println("Soggy crust selected.");
+                        break;
+                    default:
+                        System.out.println("id not found");
                 }
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
         });
-
 
         anchoviesCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == anchoviesCheckbox && isChecked) {
-
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
+                    System.out.println("Anchovies checked.");
+                } else {
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() -1);
+                    System.out.println("Anchovies unchecked.");
                 }
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
         });
 
@@ -72,8 +93,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == pineappleCheckbox && isChecked) {
-
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
+                    System.out.println("Pineapple checked.");
+                } else {
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() - 1);
+                    System.out.println("Pineapple unchecked.");
                 }
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
         });
 
@@ -81,8 +107,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == garlicCheckBox && isChecked) {
-
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
+                    System.out.println("Garlic checked.");
+                } else {
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() - 1);
+                    System.out.println("Garlic unchecked.");
                 }
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
         });
 
@@ -90,16 +121,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == okraCheckBox && isChecked) {
-
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
+                    System.out.println("Okra checked.");
+                } else {
+                    customersPizza.setTopping_count(customersPizza.getTopping_count() - 1);
+                    System.out.println("Okra unchecked.");
                 }
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
         });
 
         toGoOrNotRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int currentId = toGoOrNotRadioGroup.getCheckedRadioButtonId();
-                RadioButton currentToGoOrNotRB = (RadioButton)findViewById(currentId);
+                switch (checkedId) {
+                    case R.id.radioButton_atRestaurant:
+                        customersPizza.setToGo_price(0);
+                        System.out.println("At restaurant selected.");
+                        break;
+                    case R.id.radioButton_pickup:
+                        customersPizza.setToGo_price(0);
+                        System.out.println("Pickup selected.");
+                        break;
+                    case R.id.radioButton_deliver:
+                        customersPizza.setToGo_price(3.0);
+                        System.out.println("Delivery selected.");
+                        break;
+                    default:
+                        System.out.println("id not found");
+                }
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
         });
 
@@ -107,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 currentSize.setText(progress + " in" );
+
+                customersPizza.setSize(progress);
+                System.out.println("Pizza size changed.");
+
+                finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
 
             @Override
@@ -119,6 +175,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private double calculateFinalTotal() {
+        double sizePrice = 0.05 * customersPizza.getSize();
+        double toppingPrice = 0.05 * customersPizza.getTopping_count() * customersPizza.getSize();
+        double crustPrice = customersPizza.getCrust_price();
+        double deliveryPrice = customersPizza.getToGo_price();
+        return sizePrice + toppingPrice + crustPrice + deliveryPrice;
     }
 }
