@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -28,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView finalPrice;
 
-    Double totalCost = 0.0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         customersPizza = new Pizza();
 
-        crustRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_crust);
+        crustRadioGroup = findViewById(R.id.radioGroup_crust);
 
-        anchoviesCheckbox = (CheckBox)findViewById(R.id.checkBox_anchovies);
-        pineappleCheckbox = (CheckBox)findViewById(R.id.checkBox_pineapple);
-        garlicCheckBox = (CheckBox)findViewById(R.id.checkBox_garlic);
-        okraCheckBox = (CheckBox)findViewById(R.id.checkBox_okra);
+        anchoviesCheckbox = findViewById(R.id.checkBox_anchovies);
+        pineappleCheckbox = findViewById(R.id.checkBox_pineapple);
+        garlicCheckBox = findViewById(R.id.checkBox_garlic);
+        okraCheckBox = findViewById(R.id.checkBox_okra);
 
-        toGoOrNotRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_toGoOrNot);
+        toGoOrNotRadioGroup = findViewById(R.id.radioGroup_toGoOrNot);
 
-        sizeSeekBar = (SeekBar)findViewById(R.id.seekBar_size);
+        sizeSeekBar = findViewById(R.id.seekBar_size);
 
-        currentSize = (TextView)findViewById(R.id.textView_inches);
+        currentSize = findViewById(R.id.textView_inches);
 
-        finalPrice = (TextView)findViewById(R.id.textView_price);
+        finalPrice = findViewById(R.id.textView_price);
 
         crustRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -58,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radioButton_crispy:
                         customersPizza.setCrust_price(0);
-                        System.out.println("Crispy crust selected.");
+//                        System.out.println("Crispy crust selected.");
                         break;
                     case R.id.radioButton_thick:
                         customersPizza.setCrust_price(2.50);
-                        System.out.println("Thick crust selected.");
+//                        System.out.println("Thick crust selected.");
                         break;
                     case R.id.radioButton_soggy:
                         customersPizza.setCrust_price(5.00);
-                        System.out.println("Soggy crust selected.");
+//                        System.out.println("Soggy crust selected.");
                         break;
                     default:
                         System.out.println("id not found");
@@ -80,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == anchoviesCheckbox && isChecked) {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
-                    System.out.println("Anchovies checked.");
+//                    System.out.println("Anchovies checked.");
                 } else {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() -1);
-                    System.out.println("Anchovies unchecked.");
+//                    System.out.println("Anchovies unchecked.");
                 }
                 finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
@@ -94,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == pineappleCheckbox && isChecked) {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
-                    System.out.println("Pineapple checked.");
+//                    System.out.println("Pineapple checked.");
                 } else {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() - 1);
-                    System.out.println("Pineapple unchecked.");
+//                    System.out.println("Pineapple unchecked.");
                 }
                 finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
@@ -108,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == garlicCheckBox && isChecked) {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
-                    System.out.println("Garlic checked.");
+//                    System.out.println("Garlic checked.");
                 } else {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() - 1);
-                    System.out.println("Garlic unchecked.");
+//                    System.out.println("Garlic unchecked.");
                 }
                 finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
@@ -122,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView == okraCheckBox && isChecked) {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() + 1);
-                    System.out.println("Okra checked.");
+//                    System.out.println("Okra checked.");
                 } else {
                     customersPizza.setTopping_count(customersPizza.getTopping_count() - 1);
-                    System.out.println("Okra unchecked.");
+//                    System.out.println("Okra unchecked.");
                 }
                 finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
@@ -137,15 +134,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radioButton_atRestaurant:
                         customersPizza.setToGo_price(0);
-                        System.out.println("At restaurant selected.");
+//                        System.out.println("At restaurant selected.");
                         break;
                     case R.id.radioButton_pickup:
                         customersPizza.setToGo_price(0);
-                        System.out.println("Pickup selected.");
+//                        System.out.println("Pickup selected.");
                         break;
                     case R.id.radioButton_deliver:
                         customersPizza.setToGo_price(3.0);
-                        System.out.println("Delivery selected.");
+//                        System.out.println("Delivery selected.");
                         break;
                     default:
                         System.out.println("id not found");
@@ -160,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 currentSize.setText(progress + " in" );
 
                 customersPizza.setSize(progress);
-                System.out.println("Pizza size changed.");
+//                System.out.println("Pizza size changed.");
 
                 finalPrice.setText("$" + String.format("%.2f", calculateFinalTotal()));
             }
