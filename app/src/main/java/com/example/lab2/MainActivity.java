@@ -182,10 +182,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private double calculateFinalTotal() {
-        double sizePrice = 0.05 * customersPizza.getSize();
-        double toppingPrice = 0.05 * customersPizza.getTopping_count() * customersPizza.getSize();
-        double crustPrice = customersPizza.getCrust_price();
-        double deliveryPrice = customersPizza.getToGo_price();
-        return sizePrice + toppingPrice + crustPrice + deliveryPrice;
+        if (customersPizza.getSize() > 0) {
+            double areaOfPizza = (Math.PI/4) * customersPizza.getSize() * customersPizza.getSize();
+            double sizePrice = 0.05 * areaOfPizza;
+            double toppingPrice = 0.05 * customersPizza.getTopping_count() * areaOfPizza;
+            double crustPrice = customersPizza.getCrust_price();
+            double deliveryPrice = customersPizza.getToGo_price();
+            return sizePrice + toppingPrice + crustPrice + deliveryPrice;
+        } else {
+            return 0;
+        }
     }
 }
