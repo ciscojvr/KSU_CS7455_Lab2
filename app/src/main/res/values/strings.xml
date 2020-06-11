@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Lab2</string>
     <string name="crust">Crust</string>
-    <string name="_00_00">$00.00</string>
+    <string name="_0_00">$0.00</string>
     <string name="topping">Topping</string>
     <string name="to_go_or_no">To go or no?</string>
     <string name="size">Size</string>
